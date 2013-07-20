@@ -1,0 +1,44 @@
+.row-fluid
+	.span6 
+		%h3 Was ist das Mörderspiel?
+		Das Mörderspiel ist ein Spiel was gut neben dem Alltag gespielt werden kann.
+		In diesem Spiel geht es darum jemanden bestimmten zu finden und ihn, ohne Zeugen,
+		umzubringen.
+		%br
+		Klingt brutal? Ist es aber nicht!
+		%br
+		Wie bereits gesagt handelt es sich um ein Spiel, bleibt also die Frage:
+		%br
+		Wie begeht man einen Mord?
+		%ul
+			%li Opfer ausfindig machen.
+			%li Opfer ohne Zeugen einen Gegenstand überreichen.
+			%li Dem Opfer mitteilen das es Tot ist.
+		Die Probleme die man bei dem Spiel überwinden muss sind zumeinen die Paranoia des Opfers
+		und zum anderen den Zeitpunkt zu finden in den kein Zeuge dabei ist.
+		
+		Zeugen sind diejenigen die noch am Spiel beteiligt sind also noch ein Leben haben, und somit
+		selbst noch einen Auftrag besitzen.
+		
+		%h4 Genaueres zu Aufträgen
+		
+		Man bekommt bei Spielbeginn eine Anzahl an Aufträgen die der Anzahl an Kreisen enstpricht.
+		So erhält jeder Spieler in einer Runde in der zwei Kreise existieren zwei Aufträge.
+		Die Kreise sind die Leben eines jeden Spielers. Alle Kreise laufen parralel und unabhängig
+		voneinander.
+		
+		Auf jedem Auftrag steht das Opfer und auch das Ende der Runde also wann der Spielleiter die Runde
+		beendet.
+	.span6
+		.row-fluid
+			.span12
+				%h3 Ein Spiel betrachten
+				- if current_user
+					- render user_games
+				%br
+				= form_tag(welcome_show_game_by_name_path, method: "get") do
+					= label_tag(:name, "Spielname")
+					= text_field_tag(:name)
+					%br
+					= submit_tag("Anzeigen")
+				
