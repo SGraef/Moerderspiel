@@ -28,3 +28,22 @@ Dann(/^Existiert ein Nutzer mit meinen Angaben$/) do
   @user.username.should == "Banane"
   @user.email.should == "foo@bar.de" 
 end
+
+Angenommen(/^es existiert ein Nutzer$/) do 
+  @user = User.create(username: "Banane", password: "123456", email: "foo@bar.de")
+end
+
+Wenn(/^ich dann auf Anmelden klicke$/) do
+  click_link "Anmelden"
+end
+
+Wenn(/^das Anmeldeformular ausfülle und es Abschicke$/) do
+  fill_in 'password', with: '123456'
+  fill_in 'username', with: @user.username
+  click_button "Anmelden"
+end
+
+Dann(/^bin ich angemeldet$/) do
+  page.should have_content(@user.username)
+  page.should have_content("Abmelden")
+end

@@ -34,7 +34,7 @@
 			.span12
 				%h3 Ein Spiel betrachten
 				- if current_user
-					- render user_games
+					= render "user_games"
 				%br
 				= form_tag(welcome_show_game_by_name_path, method: "get") do
 					= label_tag(:name, "Spielname")
