@@ -79,7 +79,9 @@ group :test do
   gem 'capybara', '~> 2.0'
 
   # Datenbank nach Tests aufräumen
-  gem 'database_cleaner', '~> 0.9'
+  gem 'database_cleaner'
+  
+  gem 'launchy'
 end
 
 group :development, :test do

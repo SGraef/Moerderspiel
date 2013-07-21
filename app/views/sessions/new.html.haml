@@ -1,7 +1,7 @@
 .row
   .small-6.large-centered.columns
     %h1 Log in
-    = form_tag user_sessions_path do
+    = form_tag login_path do
       %p
         = label_tag :Login
         %br/
@@ -15,5 +15,3 @@
         %br
         = label_tag :remember_me, 'Angemeldet bleiben'
       %p= submit_tag "Log in"
-%h1 Forgot Password?
-= render 'forgot_password_form'

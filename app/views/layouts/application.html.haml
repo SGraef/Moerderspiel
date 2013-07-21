@@ -31,6 +31,18 @@
                 %li= link_to "Link 1", "/path1"
                 %li= link_to "Link 2", "/path2"
                 %li= link_to "Link 3", "/path3"
+              .pull-right
+                -if current_user
+                  %ul.nav
+                    %li
+                      = link_to "#{current_user.username}", edit_user_path(current_user)
+                      (
+                      =link_to "Abmelden", logout_path
+                      )
+                -else
+                  %ul.nav
+                    %li=link_to "Login", login_path
+                    %li=link_to "Registrieren", new_user_path
 
       .container-fluid
         .span9
