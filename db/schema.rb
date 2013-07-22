@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130721140628) do
+ActiveRecord::Schema.define(version: 20130721222808) do
 
   create_table "circles", force: true do |t|
     t.integer  "game_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20130721140628) do
     t.datetime "updated_at"
     t.time     "starttime"
     t.time     "endtime"
+    t.boolean  "tweet"
   end
 
   add_index "games", ["gamemaster_id"], name: "index_games_on_gamemaster_id"

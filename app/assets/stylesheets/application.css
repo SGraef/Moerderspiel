@@ -15,3 +15,8 @@
 footer {
 	text-align:center;
 }
+
+.date select{
+  width:auto;
+  height:auto;
+}

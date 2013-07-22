@@ -3,13 +3,13 @@ Moerderspiel::Application.routes.draw do
   get "password_resets/edit"
   get "password_resets/update"
   resources :users
-
   resources :games
+  resources :sessions
+  
   get "login"   => "sessions#new",        :as => "login"
   get "logout"  => "sessions#destroy",    :as => "logout"
   get "signup"  => "users#new",           :as => "signup"
   get "gamemaster" => "games#gamemaster", :as => "gamemaster"
-  resources :sessions
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
