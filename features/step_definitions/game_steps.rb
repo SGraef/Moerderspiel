@@ -28,3 +28,16 @@ end
 Dann(/^er ist Gamemaster dieses Spiels$/) do
   @game.gamemaster.equal? @user 
 end
+
+Angenommen(/^ein Spiel bei dem er nicht Gamemaster ist$/) do
+  user = User.create(username: "Foobar", password: "123456", email: "fooo@bar.de")
+  @game = Game.create(name: "test1", circle_count: 2, gamemaster: user)
+end
+
+Wenn(/^dieser dann dem Spiel beitritt$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^ist er als Mitspieler registriert$/) do
+  pending # express the regexp above with the code you wish you had
+end
