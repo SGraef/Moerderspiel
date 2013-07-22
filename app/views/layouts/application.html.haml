@@ -28,9 +28,10 @@
             = link_to "Mörderspiel", root_path, { class: :brand }
             .container.nav-collapse
               %ul.nav
-                %li= link_to "Link 1", "/path1"
-                %li= link_to "Link 2", "/path2"
-                %li= link_to "Link 3", "/path3"
+                - if current_user
+                  %li= link_to "Spiele", games_path
+                  %li= link_to "Meine Spiele", gamemaster_path
+                  %li= link_to "Rangliste", "user_ranking_path"
               .pull-right
                 -if current_user
                   %ul.nav

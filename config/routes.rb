@@ -8,6 +8,7 @@ Moerderspiel::Application.routes.draw do
   get "login"   => "sessions#new",        :as => "login"
   get "logout"  => "sessions#destroy",    :as => "logout"
   get "signup"  => "users#new",           :as => "signup"
+  get "gamemaster" => "games#gamemaster", :as => "gamemaster"
   resources :sessions
   
   # The priority is based upon order of creation: first created -> highest priority.

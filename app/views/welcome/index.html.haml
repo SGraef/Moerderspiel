@@ -33,7 +33,7 @@
 		.row-fluid
 			.span12
 				%h3 Ein Spiel betrachten
-				- if current_user
+				- if current_user && !@user_games.empty?
 					= render "user_games"
 				%br
 				= form_tag(welcome_show_game_by_name_path, method: "get") do
