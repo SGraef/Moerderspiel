@@ -14,7 +14,23 @@ Moerderspiel::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = true
+  ActionMailer::Base.smtp_settings = {
+      :address => "luna-wolf.de",
+      :port => "465",
+      :domain => "luna-wolf.de",
+      :authentication => :login,
+      :user_name => "moerder@luna-wolf.de",
+      :ssl                  => true,
+      :tls                  => true,
+      :enable_starttls_auto => true, 
+      :password => Moerderspiel::Application.config.secure_keys['smtp_password']
+      
+  }
+  config.action_mailer.default_url_options = { :host => 'moerderspiel.dev' }
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

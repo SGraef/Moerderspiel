@@ -1,10 +1,8 @@
 Moerderspiel::Application.routes.draw do
-  get "password_resets/create"
-  get "password_resets/edit"
-  get "password_resets/update"
   resources :users
   resources :games
   resources :sessions
+  resources :password_resets
   
   get "login"   => "sessions#new",        :as => "login"
   get "logout"  => "sessions#destroy",    :as => "logout"

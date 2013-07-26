@@ -35,9 +35,9 @@ Angenommen(/^ein Spiel bei dem er nicht Gamemaster ist$/) do
 end
 
 Wenn(/^dieser dann dem Spiel beitritt$/) do
-  pending # express the regexp above with the code you wish you had
+  @game.participate(@user)
 end
 
 Dann(/^ist er als Mitspieler registriert$/) do
-  pending # express the regexp above with the code you wish you had
+  @game.player.first.should.equal? @user
 end

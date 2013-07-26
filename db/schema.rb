@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130721222808) do
+ActiveRecord::Schema.define(version: 20130722200524) do
 
   create_table "circles", force: true do |t|
     t.integer  "game_id"
@@ -61,6 +61,18 @@ ActiveRecord::Schema.define(version: 20130721222808) do
   add_index "jobs", ["circle_id"], name: "index_jobs_on_circle_id"
   add_index "jobs", ["killer_id"], name: "index_jobs_on_killer_id"
   add_index "jobs", ["victim_id"], name: "index_jobs_on_victim_id"
+
+  create_table "players", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "players", ["game_id"], name: "index_players_on_game_id"
+  add_index "players", ["user_id"], name: "index_players_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "username",                        null: false

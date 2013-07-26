@@ -14,3 +14,5 @@ ee http://help.github.com/ignore-files/ for more about ignoring files.
 /log/*.log
 /tmp
 
+#ignore the File with Password data
+/config/secure.yml

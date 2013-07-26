@@ -19,4 +19,34 @@ class Game < ActiveRecord::Base
                     game_id: self.id
     end
   end
+  
+  def participate(user=nil, name=nil, email=nil)
+    Player.create user: user,
+                  name: name,
+                  email: email,
+                  game: self
+  end
+  
+  def start
+    players = self.player
+    self.circles.each do |circle|
+      play =players.shuffle.shuffle 
+      play.each_with_index do |player, i|
+        if i < play.length
+          Job.create killer: player,
+                     victim: play[i+1],
+                     circle: circle,
+                     status: "unfinished",
+                     key: Job.generate_key
+        else i==play.length
+          Job.create killer: player,
+                     victim: play.first,
+                     circle: circle,
+                     status: "unfinished",
+                     key: Job.generate_key
+        end
+      end
+    end
+  end
+  
 end
