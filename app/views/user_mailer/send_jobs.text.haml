@@ -1,0 +1,20 @@
+= "Hallo #{@player.get_name}"
+
+Wir überreichen ihnen diese Aufträge:
+
+-if @player.get_jobs.empty?
+  Keine Weiteren Aufträge Mehr!
+-else
+  - @player.get_jobs.each do |job|
+    = "Kreis #{job.circle.number}" 
+    Ziel:
+    = job.victim.get_name
+
+-if !@player.get_sjobs.empty?   
+  Folgende Spezialaufträge hast du:
+  - @player.get_sjob.each do |sjob|
+      sjob.victim.get_name
+      
+="Diese Aufträge sind im Rahmen von #{@player.game.name}"
+
+Valar Morghulis

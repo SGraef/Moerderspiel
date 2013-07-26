@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  user_mailer:
+    reset_password_email:
+      subject: Mörderspiel Passwort zurücksetzen.

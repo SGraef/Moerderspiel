@@ -20,6 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
+  user_mailer:
+    reset_password_email:
+      subject: Mörderspiel Passwort zurücksetzen.
   date:
     order:
     - :day

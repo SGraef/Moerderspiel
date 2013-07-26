@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "moerder@luna-wolf.de"
+  default from: "stuga@informatik.uni-bremen.de"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -10,6 +10,13 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url  = edit_password_reset_url(user.reset_password_token)
     mail(:to => user.email,
-         :subject => "Your password has been reset")
+         :subject => t user_mailer.reset_password.subject)
   end
+  
+  def send_jobs(player)
+    @player = player
+    mail(to: player.get_email,
+         subject: "Aufträge für #{player.game.name}")
+  end
+  
 end

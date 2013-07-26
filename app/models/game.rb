@@ -30,7 +30,7 @@ class Game < ActiveRecord::Base
   def start
     players = self.player
     self.circles.each do |circle|
-      play =players.shuffle.shuffle 
+      play =players.shuffle 
       play.each_with_index do |player, i|
         if i < play.length
           Job.create killer: player,
