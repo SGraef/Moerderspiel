@@ -1,5 +1,12 @@
 class GamesController < ApplicationController
   def index
+    @opengames = Game.where(gamemaster: current_user)
+    @closedgames = []
+    current_user.player.each do |player|
+      @opengames << player.game.where{status != "closed"}
+      @closedgames << player.game.where(status: "closed")
+    end
+    
   end
 
   def show

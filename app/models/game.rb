@@ -27,6 +27,27 @@ class Game < ActiveRecord::Base
                   game: self
   end
   
+  def get_player_statistics
+    "#{get_living_player.size}/#{self.player.size}"
+  end
+  
+  def get_living_player
+    players = []
+    self.player.each do |player|
+      if player.alive?
+        players << player
+      end
+    end
+  end
+  
+  def start_time
+   starttime.time.strftime "%H:%M:%S %d-%m-%Y"
+  end
+  
+  def end_time
+    endtime.time.strftime "%H:%M:%S %d-%m-%Y"
+  end
+    
   def start
     players = self.player
     self.circles.each do |circle|

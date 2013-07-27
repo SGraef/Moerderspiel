@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url  = edit_password_reset_url(user.reset_password_token)
     mail(:to => user.email,
-         :subject => t user_mailer.reset_password.subject)
+         :subject =>  "Mörderspiel Passwort zurücksetzen")
   end
   
   def send_jobs(player)

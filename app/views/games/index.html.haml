@@ -1,2 +1,36 @@
-%h1 Games#index
-%p Find me in app/views/games/index.html.haml
+%h1 Spiele
+
+%h3 Offene Spiele
+
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Anzahl Spieler
+      %th Start
+      %th Ende
+      %th Spielleiter
+  - @opengames.each do |game|
+    %tr
+      %td=link_to game.name, game
+      %td=game.get_player_statistics
+      %td=game.start_time
+      %td=game.end_time
+      %td=game.gamemaster.username
+%h3 Beendete Spiele
+
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Anzahl Spieler
+      %th Start
+      %th Ende
+      %th Spielleiter
+  - @closedgames.each do |game|
+    %tr
+      %td=link_to game.name, game
+      %td=game.get_player_statistics
+      %td=game.start_time
+      %td=game.end_time
+      %td=game.gamemaster.username
