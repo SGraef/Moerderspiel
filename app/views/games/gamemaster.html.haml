@@ -1,0 +1,30 @@
+%h1 Spiele
+
+%h3 Offene Spiele
+
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Anzahl Spieler
+      %th Start
+      %th Ende
+  - @opengames.each do |game|
+    %tr
+      %td=link_to game.name, game
+      %td=game.get_player_statistics
+      %td=game.start_time
+      %td=game.end_time
+%h3 Beendete Spiele
+
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Anzahl Spieler
+      %th Ende
+  - @closedgames.each do |game|
+    %tr
+      %td=link_to game.name, game
+      %td=game.get_player_statistics
+      %td=game.end_time

@@ -21,10 +21,17 @@ class Game < ActiveRecord::Base
   end
   
   def participate(user=nil, name=nil, email=nil)
-    Player.create user: user,
-                  name: name,
-                  email: email,
-                  game: self
+    if(Player.where(user: user, game: self).empty? &&
+       Player.where(name: name, game: self).empty? &&
+       Player.where(email: email, game: self).empty?)
+      Player.create user: user,
+                    name: name,
+                    email: email,
+                    game: self
+      return true
+    else
+      return false
+    end
   end
   
   def get_player_statistics

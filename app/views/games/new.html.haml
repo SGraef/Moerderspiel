@@ -19,6 +19,7 @@
     =f.label :Kreise
     =f.number_field "circle_count", min: 1
   =hidden_field :gamemaster, value: current_user
+  =hidden_field :status, value: "open"
   =f.label :Tweeten?
   =f.check_box "tweet"
   .actions

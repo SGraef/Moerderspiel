@@ -1,9 +1,9 @@
 %h4 Aktuellsten Spiele
 
-%table
-  %tr
-    %th Spiel
-
+%table.table
+  %thead
+    %tr
+      %th Spiel
   - @user_games.each do |game|
     %tr
       %td= link_to "#{game.name}", game

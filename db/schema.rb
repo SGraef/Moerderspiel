@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130726155344) do
+ActiveRecord::Schema.define(version: 20130728200702) do
 
   create_table "circles", force: true do |t|
     t.integer  "game_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20130726155344) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "plot"
+    t.datetime "time"
   end
 
   add_index "extra_jobs", ["game_id"], name: "index_extra_jobs_on_game_id"
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20130726155344) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "plot"
+    t.datetime "time"
   end
 
   add_index "jobs", ["circle_id"], name: "index_jobs_on_circle_id"

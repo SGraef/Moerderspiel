@@ -1,15 +1,19 @@
 class GamesController < ApplicationController
   def index
-    @opengames = Game.where(gamemaster: current_user)
+    @opengames = []
     @closedgames = []
     current_user.player.each do |player|
-      @opengames << player.game.where{status != "closed"}
-      @closedgames << player.game.where(status: "closed")
+      if player.game.status == "closed"
+        @closedgames << player.game
+      else
+        @opengames << player.game
+      end
     end
     
   end
 
   def show
+    @game = Game.find(params[:id])
   end
 
   def edit
@@ -40,9 +44,34 @@ class GamesController < ApplicationController
   end
   
   def gamemaster
-    @games = Game.where(gamemaster: current_user)
+    @opengames = Game.where(gamemaster: current_user, status: "open") + Game.where(gamemaster: current_user, status: "running")
+    @closedgames = Game.where(gamemaster: current_user, status: "closed")
   end
   
+  def participate
+    game = Game.find(params[:id])
+    if current_user
+     if game.participate(current_user)
+       redirect_to game, notice: "Erfolgreich für das Spiel #{game.name} angemeldet"
+     else
+       redirect_to game, :flash => {error: "Anmeldung nicht möglich! 
+       Es wurde die E-Mail-Adresse oder der Name schonmal für dieses Spiel verwendet"}
+     end
+    else
+     if game.participate(nil, params[:player][:name], params[:player][:email])
+       redirect_to game, notice: "Erfolgreich für das Spiel #{game.name} angemeldet"
+     else
+       redirect_to game, :flash => {error: "Anmeldung nicht möglich! 
+       Es wurde die E-Mail-Adresse oder der Name schonmal für dieses Spiel verwendet"}
+     end
+    end
+  end
+  
+  def kill
+    game = Game.find(params[:id])
+    
+    redirect_to game, notice: "Mord Erfolgreich gemeldet"
+  end
   private
   def game_params
     params[:game].permit(:name, :circle_count, :tweet, :starttime, :endtime)
