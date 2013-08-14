@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   has_many :circles
   has_many :extrajobs
   after_create :create_circles
-  
+
   def circle_count
     @circle_count || 1
   end
@@ -21,16 +21,24 @@ class Game < ActiveRecord::Base
   end
   
   def participate(user=nil, name=nil, email=nil)
-    if(Player.where(user: user, game: self).empty? &&
-       Player.where(name: name, game: self).empty? &&
-       Player.where(email: email, game: self).empty?)
-      Player.create user: user,
-                    name: name,
-                    email: email,
-                    game: self
-      return true
+    if user.nil?
+      if(Player.where(name: name, game: self).empty? &&
+         Player.where(email: email, game: self).empty?)
+         Player.create name: name,
+                       email: email,
+                       game: self
+        return true
+      else
+        return false
+      end
     else
-      return false
+      if(Player.where(user: user, game: self).empty?)
+         Player.create user: user,
+                       game: self
+        return true
+      else
+        return false
+      end
     end
   end
   
@@ -45,6 +53,7 @@ class Game < ActiveRecord::Base
         players << player
       end
     end
+    return players
   end
   
   def start_time
@@ -60,21 +69,23 @@ class Game < ActiveRecord::Base
     self.circles.each do |circle|
       play =players.shuffle 
       play.each_with_index do |player, i|
-        if i < play.length
+        if player==play.last
           Job.create killer: player,
-                     victim: play[i+1],
+                     victim: play.first,
                      circle: circle,
                      status: "unfinished",
                      key: Job.generate_key
-        else i==play.length
+        else
           Job.create killer: player,
-                     victim: play.first,
+                     victim: play[i+1],
                      circle: circle,
                      status: "unfinished",
                      key: Job.generate_key
         end
       end
     end
+    self.status == "running"
+    self.save
   end
   
 end

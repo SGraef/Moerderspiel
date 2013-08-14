@@ -1,4 +1,7 @@
-%h1= @game.name
+%h1{'style' => 'display: inline-block'}
+  = @game.name 
+-if current_user && @game.gamemaster == current_user
+  %button=link_to "Spiel starten", start_game_path(@game)
 .row-fluid
   .span6
     %table.table
@@ -10,8 +13,9 @@
           %td= player.get_name
   .span6
     -if @game.status == "open"
-      -if current_user
-        =link_to "An Spiel als #{current_user.username} teilnehmen", participate_path(@game)
+      -if current_user 
+        -if(current_user != @game.gamemaster)
+          =link_to "An Spiel als #{current_user.username} teilnehmen", participate_path(@game)
       -else
         = form_tag(participate_path(@game), method: "get") do
           = label_tag(:name, "Nutzername")
@@ -20,10 +24,12 @@
           = text_field_tag(:email)
           %br
           = submit_tag("Teilnehmen")
-    -elsif @game.status != "running"
+    -elsif @game.status == "running"
       -if current_user
         = form_tag(kill_path(@game), method: "get") do
-          = hidden_field :killer, value: Player.where(user: current_user, game: @game) 
+          - if @player.has_multi_kill?
+            = select_tag "victim", options_from_collection_for_select(@game.circle, "id", "number"), include_blank: true
+          = hidden_field :killer, value: @player
           = label_tag(:name, "Opfer")
           = select_tag "victim", options_from_collection_for_select(@game.player, "id", "get_name"), include_blank: true
           = label_tag(:plot, "Tathergang")
@@ -32,7 +38,7 @@
             = label_tag(:time, "Todeszeit")
             = select_datetime(Time.new, order: [:day, :month, :year])
           %br
-          = submit_tag("Mordmelden")    
+          = submit_tag("Mord melden")    
       -else
         = form_tag(kill_path(@game), method: "get") do
           = label_tag(:key, "Auftragscode")
@@ -44,4 +50,4 @@
           = label_tag(:time, "Toteszeit")
           = datetime_field_tag "time"
           %br
-          = submit_tag("Mordmelden") 
+          = submit_tag("Mord melden") 

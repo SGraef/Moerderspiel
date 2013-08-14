@@ -14,6 +14,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @player = Player.where(user: current_user, game: @game) 
   end
 
   def edit
@@ -58,7 +59,7 @@ class GamesController < ApplicationController
        Es wurde die E-Mail-Adresse oder der Name schonmal für dieses Spiel verwendet"}
      end
     else
-     if game.participate(nil, params[:player][:name], params[:player][:email])
+     if game.participate(nil, params[:name], params[:email])
        redirect_to game, notice: "Erfolgreich für das Spiel #{game.name} angemeldet"
      else
        redirect_to game, :flash => {error: "Anmeldung nicht möglich! 
@@ -69,9 +70,31 @@ class GamesController < ApplicationController
   
   def kill
     game = Game.find(params[:id])
-    
+    if current_user
+      job = Job.where(killer: params[:killer], victim: params[:victim],status: "unfinished").first
+      if job
+        job.kill(params[:plot])
+      else
+        redirect_to game, :flash =>{error: "kein Passernder Auftrag gefunden"}
+      end
+    else
+      job = Job.where(key: params[:key], victim: params[:victim],status: "unfinished").first
+      if job
+        job.kill(params[:plot])
+      else
+        redirect_to game, :flash =>{error: "kein Passernder Auftrag gefunden"}
+      end
+    end
     redirect_to game, notice: "Mord Erfolgreich gemeldet"
   end
+  
+  def start_game
+    game = Game.find(params[:id])
+    if game.start
+      redirect_to game, notice: "Spiel Erfolgreich gestartet! Möge das Morden Beginnen"
+    end
+  end
+  
   private
   def game_params
     params[:game].permit(:name, :circle_count, :tweet, :starttime, :endtime)

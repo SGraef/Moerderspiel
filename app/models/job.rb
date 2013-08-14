@@ -11,4 +11,16 @@ class Job < ActiveRecord::Base
     return tmp
   end
   
+  def kill(message)
+    self.status = "done"
+    self.plot = message
+    job = Job.where(circle: self.circle, killer:self.victim).first
+    if !job.nil?
+      job.status ="canceled"
+      Job.create(circle: self.circle, killer: self.killer, key: job.key, victim:job.victim, status:"unfinished")
+      job.save
+    end
+    self.save
+  end
+  
 end

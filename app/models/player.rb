@@ -20,7 +20,13 @@ class Player < ActiveRecord::Base
     end
   end
   
-  def alive?
-    return self.game.circles.size == Job.where(victim: self, status: "finished")
+  def have_multi_kill?
+    self.get_jobs.group(:victim_id).having("COUNT(victim_id) > 1").to_a.size > 0
   end
+  
+  def alive?
+    return self.game.circles.size != Job.where(victim: self, status: "finished").size
+  end
+  
+  
 end
