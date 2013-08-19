@@ -1,4 +1,6 @@
 Moerderspiel::Application.routes.draw do
+  resources :rankings
+
   resources :users
   resources :games
   resources :sessions
@@ -9,6 +11,7 @@ Moerderspiel::Application.routes.draw do
   get "signup"  => "users#new",           :as => "signup"
   get "gamemaster" => "games#gamemaster", :as => "gamemaster"
   get "participate/:id" => "games#participate", :as => "participate"
+  get "ranking" => "rankings#index", :as => "user_ranking"
   get "kill/:id" => "games#kill", :as => "kill"
   get "start/:id" => "games#start", :as => "start_game"
   

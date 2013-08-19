@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   validates :email,                   presence: true, uniqueness: true
   has_many :player
   has_many :games
+  has_one :ranking
 end

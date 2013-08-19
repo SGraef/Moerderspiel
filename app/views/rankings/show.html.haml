@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @ranking.user
+%p
+  %b Points:
+  = @ranking.points
+%p
+  %b Sos:
+  = @ranking.sos
+
+= link_to 'Edit', edit_ranking_path(@ranking)
+\|
+= link_to 'Back', rankings_path
