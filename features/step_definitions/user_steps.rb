@@ -22,10 +22,9 @@ Wenn(/^es Abschicke$/) do
 end
 
 Dann(/^Existiert ein Nutzer mit meinen Angaben$/) do
-  @user = User.all.first
+  @user = User.where(username: "Banane").first
   @user.name.should == "bar"
   @user.surname.should == "foo"
-  @user.username.should == "Banane"
   @user.email.should == "foo@bar.de" 
 end
 

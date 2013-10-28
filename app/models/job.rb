@@ -20,6 +20,9 @@ class Job < ActiveRecord::Base
       Job.create(circle: self.circle, killer: self.killer, key: job.key, victim:job.victim, status:"unfinished")
       job.save
     end
+    if self.killer.user
+      self.killer.calculate_points(self.victim, self.circle.game)
+    end
     self.save
   end
   

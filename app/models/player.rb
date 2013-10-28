@@ -1,6 +1,7 @@
 class Player < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
+  has_many :rankings
   has_many :jobs
   has_many :sjobs, class_name: "ExtraJob"
   
@@ -28,5 +29,8 @@ class Player < ActiveRecord::Base
     return self.game.circles.size != Job.where(victim: self, status: "finished").size
   end
   
+  def ranking
+    self.rankings.first
+  end
   
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130814070338) do
+ActiveRecord::Schema.define(version: 20130820112719) do
 
   create_table "circles", force: true do |t|
     t.integer  "game_id"
@@ -80,14 +80,13 @@ ActiveRecord::Schema.define(version: 20130814070338) do
   add_index "players", ["user_id"], name: "index_players_on_user_id"
 
   create_table "rankings", force: true do |t|
-    t.integer  "user_id"
     t.integer  "points"
     t.integer  "sos"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "player_id"
+    t.integer  "position"
   end
-
-  add_index "rankings", ["user_id"], name: "index_rankings_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "username",                        null: false
@@ -103,6 +102,8 @@ ActiveRecord::Schema.define(version: 20130814070338) do
     t.datetime "reset_password_email_sent_at"
     t.string   "name"
     t.string   "surname"
+    t.integer  "sos"
+    t.integer  "points"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"
