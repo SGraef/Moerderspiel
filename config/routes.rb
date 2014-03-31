@@ -5,7 +5,7 @@ Moerderspiel::Application.routes.draw do
   resources :games
   resources :sessions
   resources :password_resets
-  
+
   get "login"   => "sessions#new",        :as => "login"
   get "logout"  => "sessions#destroy",    :as => "logout"
   get "signup"  => "users#new",           :as => "signup"
@@ -14,7 +14,7 @@ Moerderspiel::Application.routes.draw do
   get "ranking" => "rankings#index", :as => "user_ranking"
   get "kill/:id" => "games#kill", :as => "kill"
   get "start/:id" => "games#start", :as => "start_game"
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,7 +55,7 @@ Moerderspiel::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

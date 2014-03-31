@@ -41,3 +41,24 @@ end
 Dann(/^ist er als Mitspieler registriert$/) do
   @game.player.first.should.equal? @user
 end
+
+Angenommen(/^es Existiert ein Laufendes Spiel mit mehreren Spielern$/) do
+  @u1 = FactoryGirl.create :user
+  @u2 = FactoryGirl.create :user
+  gm = FactoryGirl.create :user
+  @game = Game.create(name: "test1", circle_count: 2, gamemaster: gm)
+  @game.participate(@u1)
+  @game.participate(@u2)
+  @game.start
+end
+
+Wenn(/^ein registrierter Nutzer dann einen Mord einträgt$/) do
+  @player = @game.player.first
+  job = @player.get_jobs.first
+  job.kill("Tot")
+end
+
+Dann(/^hat er einen erfolgreichen Mord$/) do
+  job = Job.where(killer: @player, status:"done")
+  job.should_not == nil
+end

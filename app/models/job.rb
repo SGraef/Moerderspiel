@@ -14,14 +14,14 @@ class Job < ActiveRecord::Base
   def kill(message)
     self.status = "done"
     self.plot = message
-    job = Job.where(circle: self.circle, killer:self.victim).first
+    job = Job.where(circle: self.circle, killer:self.victim, status:"unfinished").first
     if !job.nil?
       job.status ="canceled"
       Job.create(circle: self.circle, killer: self.killer, key: job.key, victim:job.victim, status:"unfinished")
       job.save
     end
     if self.killer.user
-      self.killer.calculate_points(self.victim, self.circle.game)
+      #self.killer.calculate_points(self.victim, self.circle.game)
     end
     self.save
   end

@@ -17,3 +17,11 @@ Funktionalität: Spielvorbereitung
   Und ein Spiel bei dem er nicht Gamemaster ist
   Wenn dieser dann dem Spiel beitritt
   Dann ist er als Mitspieler registriert
+  
+  
+  Szenario: Mordeintragen
+  Ein registrierter Nutzer will einen Mord eintragen
+  Angenommen es Existiert ein Laufendes Spiel mit mehreren Spielern
+  Wenn ein registrierter Nutzer dann einen Mord einträgt
+  Dann hat er einen erfolgreichen Mord
+  
