@@ -73,7 +73,7 @@ group :development do
 end
 group :test do
   # Feature-Verfahren für Akzeptanztests
-  gem 'cucumber-rails', '~> 1.3', :require => false
+  gem 'cucumber-rails', '~> 1.4', :require => false
 
   # Testen von Views (HTML und Javascript)
   gem 'capybara', '~> 2.0'
