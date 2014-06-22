@@ -42,3 +42,6 @@ de:
     - Oktober
     - November
     - Dezember
+  time:
+       formats:
+                short: "%d.%m.%Y %H:%M"
