@@ -20,6 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
+  running: läuft
+  open: Für die Anmeldung offen
+  finished: beendet
+  canceled: unerfüllt
+  done: abgeschlossen
+  unfinished: in Arbeit
   user_mailer:
     reset_password_email:
       subject: Mörderspiel Passwort zurücksetzen.
