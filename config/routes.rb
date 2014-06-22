@@ -14,6 +14,7 @@ Moerderspiel::Application.routes.draw do
   get "ranking" => "rankings#index", :as => "user_ranking"
   get "kill/:id" => "games#kill", :as => "kill"
   get "start/:id" => "games#start", :as => "start_game"
+  get "end/:id" => "games#end_game", :as => "end_game"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
