@@ -14,8 +14,8 @@
     %tr
       %td=link_to game.name, game
       %td=game.get_player_statistics
-      %td=game.start_time
-      %td=game.end_time
+      %td=l game.starttime, format: :short
+      %td=l game.endtime, format: :short
       %td=game.gamemaster.username
 %h3 Beendete Spiele
 
@@ -31,6 +31,6 @@
     %tr
       %td=link_to game.name, game
       %td=game.get_player_statistics
-      %td=game.start_time
-      %td=game.end_time
+      %td=l game.starttime, format: :short
+      %td=l game.endtime, format: :short
       %td=game.gamemaster.username

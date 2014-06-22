@@ -13,8 +13,8 @@
     %tr
       %td=link_to game.name, game
       %td=game.get_player_statistics
-      %td=game.start_time
-      %td=game.end_time
+      %td=l game.starttime, format: :short
+      %td=l game.endtime, format: :short
 %h3 Beendete Spiele
 
 %table.table.table-condensed.table-hover
@@ -27,4 +27,4 @@
     %tr
       %td=link_to game.name, game
       %td=game.get_player_statistics
-      %td=game.end_time
+      %td=l game.endtime, format: :short
