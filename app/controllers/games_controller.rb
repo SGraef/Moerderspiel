@@ -3,9 +3,9 @@ class GamesController < ApplicationController
     @opengames = []
     @closedgames = []
     current_user.player.each do |player|
-      if player.game.status == "closed"
+      if player.game.status == "finished"
         @closedgames << player.game
-      else
+      elsif player.game.status == "open"
         @opengames << player.game
       end
     end
@@ -46,7 +46,7 @@ class GamesController < ApplicationController
   
   def gamemaster
     @opengames = Game.where(gamemaster: current_user, status: "open") + Game.where(gamemaster: current_user, status: "running")
-    @closedgames = Game.where(gamemaster: current_user, status: "closed")
+    @closedgames = Game.where(gamemaster: current_user, status: "finished")
   end
   
   def participate
