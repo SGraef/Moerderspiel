@@ -55,10 +55,11 @@ end
 Wenn(/^ein registrierter Nutzer dann einen Mord einträgt$/) do
   @player = @game.player.first
   job = @player.get_jobs.first
-  job.kill("Tot")
+  time = Time.now
+  job.kill("Tot", {hour: time.hour, minute: time.min, year: time.year, month: time.mon, day: time.day})
 end
 
 Dann(/^hat er einen erfolgreichen Mord$/) do
-  job = Job.where(killer: @player, status:"done")
+  job = Job.where(killer: @player, status:"done").first
   job.should_not == nil
 end

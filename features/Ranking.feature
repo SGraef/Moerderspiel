@@ -8,6 +8,6 @@ Funktionalität: User Ranking
             berechnet der für dieses Spiel entsteht.
   Angenommen Es existiert ein Spiel an dem mehrere Spieler Teilnehmen
   Und in dem Spiel wurd gemordet
-  Wenn das Spiel dann Endet 
+  Wenn ich das Spiel als Gamemaster Beende
   Dann Werden die Punkte Berechnet 
   Und ein Ranking für alle Registrierten Spieler Erstellt
