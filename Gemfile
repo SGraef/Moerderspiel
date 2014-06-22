@@ -5,7 +5,7 @@ gem 'haml-rails'
 gem "therubyracer", '~> 0.11'
 gem "twitter-bootstrap-rails", '~> 2.2'
 gem 'less-rails'
-gem 'sorcery'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
@@ -35,6 +35,11 @@ gem 'jbuilder', '~> 1.2'
 # using d3 javascript for drawing the graphs
 gem 'd3_rails'
 
+# authentication and authorization
+gem 'sorcery', '~> 0.8'
+gem "pundit", '~> 0.2'
+
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -44,14 +49,14 @@ group :development do
   gem 'quiet_assets'
   # Datenbanktreiber
   gem 'sqlite3'
-  
+
   # Rack-Server
   # gem 'unicorn', '~> 4.5.0'
 
   # bequeme Fehleranzeige
   gem "better_errors"
   gem "binding_of_caller"
-  
+
   # Javascript Runtime
   # gem 'therubyracer', '~> 0.11'
 
@@ -60,7 +65,7 @@ group :development do
 
   # Automatisierung von allerhand Developer-Aufgaben
   gem 'guard', '~> 1.6'
-  
+
   # Guard spezifische gems
   if RUBY_PLATFORM =~ /darwin/
     gem 'rb-fsevent', :require => false
@@ -85,7 +90,7 @@ group :test do
 
   # Datenbank nach Tests aufräumen
   gem 'database_cleaner'
-  
+
   gem 'launchy'
   # Testinstancen
   gem 'factory_girl_rails'

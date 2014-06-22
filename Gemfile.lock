@@ -157,6 +157,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
+    pundit (0.2.3)
+      activesupport (>= 3.0.0)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -272,13 +274,14 @@ DEPENDENCIES
   less-rails
   mysql2 (~> 0.3.11)
   pry-rails
+  pundit (~> 0.2)
   quiet_assets
   rails (= 4.0.0)
   rb-fsevent
   rspec-rails (~> 2.12)
   sass-rails (~> 4.0.0)
   sdoc
-  sorcery
+  sorcery (~> 0.8)
   sqlite3
   therubyracer (~> 0.11)
   turbolinks
