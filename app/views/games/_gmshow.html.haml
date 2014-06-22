@@ -1,0 +1,46 @@
+%h1{'style' => 'display: inline-block'}
+  = @game.name 
+  (
+  =t @game.status
+  )
+.pull-right
+  -if @game.status == "open"
+    =link_to "Spiel starten", start_game_path(@game), class: 'btn btn-primary'
+  -elsif @game.status == "running"
+    =link_to "Spiel Beenden", end_game_path(@game), class: 'btn btn-danger'
+.row-fluid
+  .span6
+    %table.table
+      %thead
+        %tr
+          %th Mitspieler
+      - @game.player.sort_by{|e| e.get_name}.each do |player|
+        %tr
+          %td= player.get_name
+  .span6
+    -if @game.status == "running" || @game.status == "finished"
+      -@game.circles.each do |circle|
+        .accordion{id: "accordion_circles#{circle.number}"}
+          .accordion-group
+            .accordion-heading.center
+              = link_to "Aufträge Kreis: #{circle.number}", "#collapse_#{circle.number}", class: 'accordion-toggle', data: {toggle: "collapse", parent: "#accordion_circles#{circle.number}"}
+            .accordion-body.collapse{ id: "collapse_#{circle.number}"}
+              .accordion-inner
+                %table.table
+                  %thead
+                    %tr
+                      %th Mörder
+                      %th Opfer
+                      %th Tathergang
+                      %th Zeitpunkt
+                      %th Status
+                    -circle.jobs.each do |job|
+                      %tr
+                        %td=job.killer
+                        %td=job.victim
+                        %td=job.plot
+                        -if job.status == "done"
+                          %td=l job.time, format: :short
+                        -else
+                          %td
+                        %td=t job.status

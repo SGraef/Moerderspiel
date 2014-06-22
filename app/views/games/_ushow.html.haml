@@ -1,0 +1,76 @@
+%h1{'style' => 'display: inline-block'}
+  = @game.name 
+-if current_user && @game.gamemaster == current_user
+  =link_to "Spiel starten", start_game_path(@game), class: 'btn btn-primary'
+.row-fluid
+  .span6
+    %table.table
+      %thead
+        %tr
+          %th Mitspieler
+      - @game.player.sort_by{|e| e.get_name}.each do |player|
+        %tr
+          %td= player.get_name
+  .span6
+    -if @game.status == "open"
+      -if current_user 
+        -if(current_user != @game.gamemaster)
+          =link_to "An Spiel als #{current_user.username} teilnehmen", participate_path(@game)
+      -else
+        = form_tag(participate_path(@game), method: "get") do
+          = label_tag(:name, "Nutzername")
+          = text_field_tag(:name)
+          = label_tag(:email, "Email-Adresse")
+          = text_field_tag(:email)
+          %br
+          = submit_tag("Teilnehmen")
+    -elsif @game.status == "running"
+      -if current_user
+        = form_tag(kill_path(@game), method: "get") do
+          - if @player.has_multi_kill?
+            = select_tag "victim", options_from_collection_for_select(@game.circles, "id", "number"), include_blank: true
+          = hidden_field_tag :killer, @player.id
+          = label_tag(:name, "Opfer")
+          = select_tag "victim", options_from_collection_for_select(@game.player, "id", "get_name"), include_blank: true
+          = label_tag(:plot, "Tathergang")
+          = text_field_tag(:plot)
+          .date
+            = label_tag(:time, "Todeszeit")
+            = select_datetime(Time.new, order: [:day, :month, :year])
+          %br
+          = submit_tag("Mord melden")    
+      -else
+        = form_tag(kill_path(@game), method: "get") do
+          = label_tag(:key, "Auftragscode")
+          = text_field_tag(:key)
+          = label_tag(:name, "Opfer")
+          = select_tag "victim", options_from_collection_for_select(@game.player, "id", "get_name"), include_blank: true
+          = label_tag(:plot, "Tathergang")
+          = text_field_tag(:plot)
+          = label_tag(:time, "Toteszeit")
+          .date
+            = label_tag(:time, "Todeszeit")
+            = select_datetime(Time.local, order: [:day, :month, :year])
+          %br
+          = submit_tag("Mord melden") 
+          
+.row-fluid
+  .span12
+    %h4 Morde
+    %table.table
+      %thead
+        %tr
+          %th Kreis
+          %th Mörder
+          %th Opfer
+          %th Tathergang
+          %th Zeitpunkt
+      -@game.finished_jobs.each do |job|
+        %tr
+          %td=job.circle.number
+          %td=job.killer
+          %td=job.victim
+          %td=job.plot
+          -if job.status == "done"
+            %td=l job.time, format: :short
+         
