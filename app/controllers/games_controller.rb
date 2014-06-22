@@ -14,7 +14,11 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @player = Player.where(user: current_user, game: @game) 
+    if current_user
+      @player = Player.where(user_id: current_user.id, game: @game).first
+    else
+      @player = Player.new
+    end
   end
 
   def edit
@@ -71,9 +75,9 @@ class GamesController < ApplicationController
   def kill
     game = Game.find(params[:id])
     if current_user
-      job = Job.where(killer: params[:killer], victim: params[:victim],status: "unfinished").first
+      job = Job.where(killer_id: params[:killer], victim_id: params[:victim],status: "unfinished").first
       if job
-        job.kill(params[:plot])
+        job.kill(params[:plot], params[:date])
       else
         redirect_to game, :flash =>{error: "kein Passernder Auftrag gefunden"}
       end
@@ -85,13 +89,29 @@ class GamesController < ApplicationController
         redirect_to game, :flash =>{error: "kein Passernder Auftrag gefunden"}
       end
     end
-    redirect_to game, notice: "Mord Erfolgreich gemeldet"
+    if game.jobs.where(status: "unfinished").empty?
+      game.end
+      redirect_to game, notice: "Dies war der letzte Auftrag das Spiel ist beendet"
+    else
+      redirect_to game, notice: "Mord Erfolgreich gemeldet"
+    end
   end
   
-  def start_game
+  def start
     game = Game.find(params[:id])
     if game.start
       redirect_to game, notice: "Spiel Erfolgreich gestartet! Möge das Morden Beginnen"
+    else
+      redirect_to game, :flash =>{error: "konnte das Spiel nicht starten"}
+    end
+  end
+  
+  def end_game
+    game = Game.find(params[:id])
+    if game.end_game
+      redirect_to game, notice: "Spiel Erfolgreich gestartet! Möge das Morden Beginnen"
+    else
+      redirect_to game, :flash =>{error: "konnte das Spiel nicht starten"}
     end
   end
   

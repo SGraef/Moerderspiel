@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   has_many :circles
   has_many :extrajobs
   after_create :create_circles
-
+  
   def circle_count
     @circle_count || 1
   end
@@ -19,6 +19,7 @@ class Game < ActiveRecord::Base
                     game_id: self.id
     end
   end
+  
   
   def participate(user=nil, name=nil, email=nil)
     if user.nil?
@@ -56,13 +57,6 @@ class Game < ActiveRecord::Base
     return players
   end
   
-  def start_time
-   starttime.time.strftime "%H:%M:%S %d-%m-%Y"
-  end
-  
-  def end_time
-    endtime.time.strftime "%H:%M:%S %d-%m-%Y"
-  end
     
   def start
     players = self.player
@@ -84,8 +78,18 @@ class Game < ActiveRecord::Base
         end
       end
     end
-    self.status == "running"
-    self.save
+    self.update_attributes(status: "running")
   end
   
+  def end_game
+    jobs = Job.where(circle_id: self.circles, status: "unfinished")
+    jobs.each do |job|
+      job.update_attributes(status: "canceled")
+    end
+    self.update_attributes(status: "finished")
+  end
+  
+  def finished_jobs
+    Job.where(circle_id: self.circles, status: "done")
+  end
 end
