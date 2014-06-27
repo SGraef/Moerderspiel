@@ -1,10 +1,10 @@
 class WelcomeController < ApplicationController
   def index
     if current_user
-     @user_games = Game.where(gamemaster: current_user).last(5)
+     @user_games = Game.where(gamemaster_id: current_user).last(5)
     end
   end
-  
+
   def show_game_by_name
     name = params[:name]
     game = Game.where(name: name).first
