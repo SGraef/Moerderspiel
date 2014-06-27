@@ -20,3 +20,7 @@
 # Ignore default OS files
 .DS_Store
 Thumbs.db
+
+# Ignore the application policy its generated
+# by pundit
+/app/policies/application_policy.rb
