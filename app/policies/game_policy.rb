@@ -15,7 +15,7 @@ class GamePolicy
   end
 
   def create?
-    user.username != "Guest"
+    user.username != ""
   end
 
   def new?

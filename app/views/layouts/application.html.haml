@@ -33,9 +33,9 @@
                   %li= link_to "Meine Spiele", gamemaster_path
                   %li= link_to "Rangliste", user_ranking_path
               .pull-right
-                -if current_user
+                -if policy(Game).create?
                   %ul.nav
-                    %li=link_to "#{current_user.username}", edit_user_path(current_user) 
+                    %li=link_to "#{current_user.username}", edit_user_path(current_user)
                     %li=link_to "Abmelden", logout_path
                 -else
                   %ul.nav
@@ -46,7 +46,7 @@
         .span9
           = bootstrap_flash
           = yield
-    
+
       %footer
         %p &copy; Stuga Informatik 2013
     /

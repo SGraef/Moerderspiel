@@ -5,12 +5,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     def current_user
     @current_user = super
       unless @current_user
-        @current_user = User.new(username: "Guest")
+        @current_user = User.new(username: "")
+      else
+        @current_user
       end
     end
 
